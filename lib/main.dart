@@ -6,10 +6,11 @@ import 'package:incometaxcalculatornepal/utils/config.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
     theme: ThemeData(
         primarySwatch: Colors.indigo,
-        scaffoldBackgroundColor: Colors.greenAccent),
-    home: SplashScreen(),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 141, 98, 149)),
+    home: const SplashScreen(),
   ));
 }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:incometaxcalculatornepal/controller/function.dart';
 import 'package:incometaxcalculatornepal/utils/config.dart';
+// import 'package:pie_chart/pie_chart.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,11 +11,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController amountController = TextEditingController();
+  double amount = 0;
+  List taxSlab = [];
   String dropDownValue = "Unmarried";
   var options = ["Unmarried", "Married"];
 
   String defaultDate = "Yearly";
   var date = ["Yearly", "Monthly"];
+
+  Map<String, double> dataMap = {
+    "Flutter": 5,
+    "React": 3,
+    "Xamarin": 2,
+    "Ionic": 2,
+  };
 
   bool name = false;
 
@@ -24,15 +36,13 @@ class _HomePageState extends State<HomePage> {
       builder: (ctx) => AlertDialog(
         scrollable: true,
         title: Text(title),
-        content: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                body,
-              ),
-            ],
-          ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              body,
+            ),
+          ],
         ),
         actions: [
           TextButton(
@@ -64,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 _showDialog(
                     context, "About App", "This App is Developed By Students");
               },
-              icon: Icon(Icons.info))
+              icon: const Icon(Icons.info))
         ],
       ),
       body: Padding(
@@ -74,7 +84,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               //Dropdown menu for unmarried and married
               Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(12.0),
                 child: DropdownButtonFormField(
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -102,7 +112,9 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-
+              const SizedBox(
+                height: 2,
+              ),
               //Amount Text
               Container(
                   alignment: Alignment.bottomLeft,
@@ -117,21 +129,40 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            hintText: "600000",
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white),
-                      ),
+                      padding:
+                          const EdgeInsets.only(top: 8.0, right: 12, left: 12),
+                      child: TextFormField(
+                          controller: amountController,
+                          decoration: InputDecoration(
+                              hintText: "120000",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white),
+                          keyboardType: TextInputType.number,
+                          onChanged: (val) {
+                            setState(() {
+                              // if value contain non numeric value then clear it and make it 0
+                              if (double.tryParse(val) == null) {
+                                amountController.clear();
+                                amount = 0;
+                                return;
+                              }
+
+                              if (val.isEmpty) {
+                                amount = 0;
+                              } else {
+                                amount = double.parse(val);
+                              }
+                            });
+                          }),
                     ),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(18.0),
+                      padding:
+                          const EdgeInsets.only(top: 8.0, right: 12, left: 12),
                       child: DropdownButtonFormField(
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -148,6 +179,10 @@ class _HomePageState extends State<HomePage> {
                         }).toList(),
                         onChanged: (String? newValue) {
                           defaultDate = newValue!;
+                          if (defaultDate == "Monthly") {
+                            amount = amount * 12;
+                          }
+                          setState(() {});
                         },
                       ),
                     ),
@@ -156,9 +191,57 @@ class _HomePageState extends State<HomePage> {
               ),
 
               const SizedBox(
+                height: 20,
+              ),
+
+              //Table
+              name ? unmarriedTable(amount) : marriedTable(amount),
+
+              //Effective Tax Rate
+              const SizedBox(
                 height: 10,
               ),
-              name ? unmarriedTable() : marriedTable(),
+              amount != 0
+                  ? Text(
+                      "Effective tax rate: ${((taxCalculateIndividual(amount).reduce((a, b) => a + b)) * 100 / amount).toStringAsFixed(2)}%",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                    )
+                  : const Text(""),
+
+              //Amount In Hand
+              amount != 0
+                  ? Text(
+                      "Amount In Hand: ${amount - ((taxCalculateIndividual(amount).reduce((a, b) => a + b)))}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
+                    )
+                  : const Text(""),
+
+              // PieChart(
+              //   chartRadius: 300,
+              //   dataMap: dataMap,
+              //   animationDuration: const Duration(milliseconds: 1000),
+              //   chartLegendSpacing: 32,
+              //   initialAngleInDegree: 0,
+              //   chartType: ChartType.disc,
+              //   ringStrokeWidth: 32,
+              //   legendOptions: const LegendOptions(
+              //     showLegendsInRow: false,
+              //     legendPosition: LegendPosition.right,
+              //     showLegends: true,
+              //     legendTextStyle: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              //   chartValuesOptions: const ChartValuesOptions(
+              //     showChartValueBackground: true,
+              //     showChartValues: true,
+              //     showChartValuesInPercentage: false,
+              //     showChartValuesOutside: false,
+              //     decimalPlaces: 1,
+              //   ),
+              // )
             ],
           ),
         ),
@@ -167,15 +250,15 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget unmarriedTable() {
+Widget unmarriedTable(amount) {
   return //For Individual
       Table(
     border: TableBorder.all(
       width: 2,
     ),
-    children: const [
+    children: [
       //1st Row title
-      TableRow(
+      const TableRow(
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -218,51 +301,58 @@ Widget unmarriedTable() {
       //2nd Row 0-5lakhs
       TableRow(
         children: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("0"),
-          ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("5,00,000"),
           ),
-          Padding(
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("5,00,000"),
+          ),
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("1%"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("5,00,000"),
+            padding: const EdgeInsets.all(8.0),
+            child: amount > 500000
+                ? const Text("500,000")
+                : Text(amount.toString()),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
-          ),
+              padding: const EdgeInsets.all(8.0),
+              child: Text(taxCalculateIndividual(amount).isNotEmpty
+                  ? taxCalculateIndividual(amount)[0].toStringAsFixed(2)
+                  : "N/A")),
         ],
       ),
 
       //3rd row 5-7lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("5,00,000"),
+            child: Text("2,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("7,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("10%"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("2,00,000"),
+            padding: const EdgeInsets.all(8.0),
+            child: amount > 700000
+                ? const Text("200,000")
+                : Text((amount - 500000).toString()),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 1
+                ? taxCalculateIndividual(amount)[1].toString()
+                : "N/A"),
           ),
         ],
       ),
@@ -270,50 +360,58 @@ Widget unmarriedTable() {
       //4th row 7-10lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("7,00,000"),
+            child: Text("3,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("10,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("20%"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("3,00,000"),
+            padding: const EdgeInsets.all(8.0),
+            child: amount > 1000000
+                ? const Text("300,000")
+                : Text((amount - 700000).toString()),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 2
+                ? taxCalculateIndividual(amount)[2].toString()
+                : "N/A"),
           ),
         ],
       ),
       //5th row 10-20 lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("10,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("20,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("30%"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("10,00,000"),
+            padding: const EdgeInsets.all(8.0),
+            child: amount > 2000000
+                ? const Text("1,000,000")
+                : Text((amount - 1000000).toString()),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 3
+                ? taxCalculateIndividual(amount)[3].toString()
+                : "N/A"),
           ),
         ],
       ),
@@ -321,25 +419,29 @@ Widget unmarriedTable() {
       //6th row more than 20lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(">20,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("36%"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("Remaining"),
+            padding: const EdgeInsets.all(8.0),
+            child: amount > 2000000
+                ? Text((amount - 2000000).toString())
+                : const Text(""),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 4
+                ? taxCalculateIndividual(amount)[4].toString()
+                : "N/A"),
           ),
         ],
       ),
@@ -348,19 +450,19 @@ Widget unmarriedTable() {
 
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Grand Total",
@@ -368,11 +470,9 @@ Widget unmarriedTable() {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "6500000",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            padding: const EdgeInsets.all(8.0),
+            child: Text((taxCalculateIndividual(amount).reduce((a, b) => a + b))
+                .toString()),
           ),
         ],
       ),
@@ -380,14 +480,14 @@ Widget unmarriedTable() {
   );
 }
 
-Widget marriedTable() {
+Widget marriedTable(amount) {
   return Table(
     border: TableBorder.all(
       width: 2,
     ),
-    children: const [
+    children: [
       //1st Row for title
-      TableRow(
+      const TableRow(
         children: [
           Padding(
             padding: EdgeInsets.all(8.0),
@@ -430,25 +530,27 @@ Widget marriedTable() {
       //2nd Row 0-6lakhs
       TableRow(
         children: [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("0"),
-          ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("6,00,000"),
           ),
-          Padding(
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("6,00,000"),
+          ),
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("1%"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("6,00,000"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).isNotEmpty
+                ? taxCalculateIndividual(amount)[0].toString()
+                : "N/A"),
           ),
         ],
       ),
@@ -456,25 +558,27 @@ Widget marriedTable() {
       //3rd row 6-8lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("6,00,000"),
+            child: Text("2,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("8,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("10%"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("2,00,000"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 1
+                ? taxCalculateIndividual(amount)[1].toString()
+                : "N/A"),
           ),
         ],
       ),
@@ -482,50 +586,54 @@ Widget marriedTable() {
       //4th row 8-11 lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("8,00,000"),
+            child: Text("3,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("11,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("20%"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("3,00,000"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 2
+                ? taxCalculateIndividual(amount)[2].toString()
+                : "N/A"),
           ),
         ],
       ),
       //5th row 11-20 lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("11,00,000"),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("20,00,000"),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("30%"),
+          ),
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("11,00,000"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("20,00,000"),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("30%"),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("9,00,000"),
-          ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 3
+                ? taxCalculateIndividual(amount)[3].toString()
+                : "N/A"),
           ),
         ],
       ),
@@ -533,25 +641,27 @@ Widget marriedTable() {
       //6th row more than 20lakhs
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(">20,00,000"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("36%"),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("Remaining"),
+            child: Text("500,000"),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(""),
+            padding: const EdgeInsets.all(8.0),
+            child: Text(taxCalculateIndividual(amount).length > 4
+                ? taxCalculateIndividual(amount)[4].toString()
+                : "N/A"),
           ),
         ],
       ),
@@ -560,19 +670,19 @@ Widget marriedTable() {
 
       TableRow(
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(""),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Grand Total",
@@ -580,11 +690,9 @@ Widget marriedTable() {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "6500000",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            padding: const EdgeInsets.all(8.0),
+            child: Text((taxCalculateIndividual(amount).reduce((a, b) => a + b))
+                .toString()),
           ),
         ],
       ),
