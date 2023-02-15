@@ -1,13 +1,30 @@
-// Stateless
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class DialogBox extends StatelessWidget {
-  final String title;
-  final String content;
-  const DialogBox({super.key, required this.title, required this.content});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
+// // Dialog Start
+// _showDialog(context, String title, String body) {
+//   return showDialog(
+//     context: context,
+//     builder: (ctx) => AlertDialog(
+//       scrollable: true,
+//       title: Text(title),
+//       content: Container(
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               body,
+//             ),
+//           ],
+//         ),
+//       ),
+//       actions: [
+//         TextButton(
+//           onPressed: () {
+//             Navigator.of(ctx).pop();
+//           },
+//           child: const Text("Ok"),
+//         ),
+//       ],
+//     ),
+//   );
+// }

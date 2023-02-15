@@ -17,23 +17,61 @@ class _HomePageState extends State<HomePage> {
 
   bool name = false;
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(12.0),
+  // Dialog Start
+  _showDialog(context, String title, String body) {
+    return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        scrollable: true,
+        title: Text(title),
+        content: Container(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                AppDetails.appName,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+                body,
               ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+            child: const Text("Ok"),
+          ),
+        ],
+      ),
+    );
+  }
+  // Dialog End
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          AppDetails.appName,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                _showDialog(
+                    context, "About App", "This App is Developed By Students");
+              },
+              icon: Icon(Icons.info))
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
               //Dropdown menu for unmarried and married
               Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -75,37 +113,46 @@ class _HomePageState extends State<HomePage> {
                   )),
 
               //for enter Amount Text Field
-              enterAmount(),
-
-              //for Date Option
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: DropdownButtonFormField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            hintText: "600000",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white),
                       ),
-                      filled: true,
-                      fillColor: Colors.white),
-                  value: defaultDate,
-                  items: date.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    defaultDate = newValue!;
-                    // if (dropDownValue == "Unmarried") {
-                    //   name = true;
-                    // } else if (dropDownValue == "Married") {
-                    //   name = false;
-                    // } else {
-                    //   const Text("Invalid Input");
-                    // }
-                    // setState(() {});
-                  },
-                ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: DropdownButtonFormField(
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white),
+                        value: defaultDate,
+                        items: date.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          defaultDate = newValue!;
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
 
               const SizedBox(
@@ -542,20 +589,5 @@ Widget marriedTable() {
         ],
       ),
     ],
-  );
-}
-
-Widget enterAmount() {
-  return Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: TextField(
-      decoration: InputDecoration(
-          hintText: "600000",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          filled: true,
-          fillColor: Colors.white),
-    ),
   );
 }
