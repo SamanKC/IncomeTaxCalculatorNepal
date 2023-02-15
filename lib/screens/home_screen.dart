@@ -11,6 +11,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String dropDownValue = "Unmarried";
   var options = ["Unmarried", "Married"];
+
+  String defaultDate = "Yearly";
+  var date = ["Yearly", "Monthly"];
+
   bool name = false;
 
   @override
@@ -19,12 +23,18 @@ class _HomePageState extends State<HomePage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
-              Text(AppDetails.appName),
+              Text(
+                AppDetails.appName,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
 
-              //Dropdown
+              //Dropdown menu for unmarried and married
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: DropdownButtonFormField(
@@ -53,6 +63,53 @@ class _HomePageState extends State<HomePage> {
                     setState(() {});
                   },
                 ),
+              ),
+
+              //Amount Text
+              Container(
+                  alignment: Alignment.bottomLeft,
+                  margin: const EdgeInsets.only(left: 12),
+                  child: const Text(
+                    "Enter Your Amount:",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+
+              //for enter Amount Text Field
+              enterAmount(),
+
+              //for Date Option
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white),
+                  value: defaultDate,
+                  items: date.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    defaultDate = newValue!;
+                    // if (dropDownValue == "Unmarried") {
+                    //   name = true;
+                    // } else if (dropDownValue == "Married") {
+                    //   name = false;
+                    // } else {
+                    //   const Text("Invalid Input");
+                    // }
+                    // setState(() {});
+                  },
+                ),
+              ),
+
+              const SizedBox(
+                height: 10,
               ),
               name ? unmarriedTable() : marriedTable(),
             ],
@@ -485,5 +542,20 @@ Widget marriedTable() {
         ],
       ),
     ],
+  );
+}
+
+Widget enterAmount() {
+  return Padding(
+    padding: const EdgeInsets.all(12.0),
+    child: TextField(
+      decoration: InputDecoration(
+          hintText: "600000",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          filled: true,
+          fillColor: Colors.white),
+    ),
   );
 }
