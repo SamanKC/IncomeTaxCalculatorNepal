@@ -8,7 +8,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppDetails.appName,
-      home: Scaffold(),
+      home: const Scaffold(),
     );
   }
 }
