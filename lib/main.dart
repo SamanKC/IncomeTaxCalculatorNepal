@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:incometaxcalculatornepal/screens/home_screen.dart';
-import 'package:incometaxcalculatornepal/screens/test.dart';
+
 
 void main() {
   runApp(const MyApp());

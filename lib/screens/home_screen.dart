@@ -9,82 +9,481 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  AppDetails appDetails = AppDetails();
+  String dropDownValue = "Unmarried";
+  var options = ["Unmarried", "Married"];
+  bool name = false;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(AppDetails.appName),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text(AppDetails.appName),
 
-          //Data Table for Couple
-          child: DataTable(border: TableBorder.all(), columns: const [
-            DataColumn(
-                label:
-                    Text("Slab", style: TextStyle(fontWeight: FontWeight.bold)),
-                numeric: true),
-            DataColumn(
-                label: Text("Cumulative",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-            DataColumn(
-                label: Text("Rate",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-            DataColumn(
-                label: Text("Taxable Amount",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-            DataColumn(
-                label: Text("Tax @ Slab Rate",
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-          ], rows: const [
-            DataRow(cells: [
-              DataCell(Text("600,000")),
-              DataCell(Text("600,000")),
-              DataCell(Text("1%")),
-              DataCell(Text("600,000")),
-              DataCell(Text("")),
-            ]),
-            DataRow(cells: [
-              DataCell(Text("200,000")),
-              DataCell(Text("800,000")),
-              DataCell(Text("10%")),
-              DataCell(Text("200,000")),
-              DataCell(Text("")),
-            ]),
-            DataRow(cells: [
-              DataCell(Text("300,000")),
-              DataCell(Text("11, 00,000")),
-              DataCell(Text("20%")),
-              DataCell(Text("300,000")),
-              DataCell(Text("")),
-            ]),
-            DataRow(cells: [
-              DataCell(Text("1,100,000")),
-              DataCell(Text("2,000,000")),
-              DataCell(Text("30%")),
-              DataCell(Text("1,100,000")),
-              DataCell(Text("")),
-            ]),
-            DataRow(cells: [
-              DataCell(Text(">20,00,000")),
-              DataCell(Text("")),
-              DataCell(Text("36%")),
-              DataCell(Text("500,000")),
-              DataCell(Text("")),
-            ]),
-            DataRow(cells: [
-              DataCell(Text("")),
-              DataCell(Text("")),
-              DataCell(Text("")),
-              DataCell(Text("Grand Total",
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-              DataCell(
-                Text(""),
+              //Dropdown
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: DropdownButtonFormField(
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white),
+                  value: dropDownValue,
+                  items: options.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    dropDownValue = newValue!;
+                    if (dropDownValue == "Unmarried") {
+                      name = true;
+                    } else if (dropDownValue == "Married") {
+                      name = false;
+                    } else {
+                      const Text("Invalid Input");
+                    }
+                    setState(() {});
+                  },
+                ),
               ),
-            ]),
-          ]),
+              name ? unmarriedTable() : marriedTable(),
+            ],
+          ),
         ),
-      ],
+      ),
     );
   }
+}
+
+Widget unmarriedTable() {
+  return //For Individual
+      Table(
+    border: TableBorder.all(
+      width: 2,
+    ),
+    children: const [
+      //1st Row title
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Slab",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Cumulative",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Rate",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Taxable Amount",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Tax @slab",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+
+      //2nd Row 0-5lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("0"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("5,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("1%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("5,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //3rd row 5-7lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("5,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("7,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("10%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("2,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //4th row 7-10lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("7,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("10,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("20%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("3,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+      //5th row 10-20 lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("10,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("20,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("30%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("10,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //6th row more than 20lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(">20,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("36%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Remaining"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //7th Row For Grand Total
+
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Grand Total",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "6500000",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget marriedTable() {
+  return Table(
+    border: TableBorder.all(
+      width: 2,
+    ),
+    children: const [
+      //1st Row for title
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Slab",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Cumulative",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Rate",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Taxable Amount",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Tax @slab",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+
+      //2nd Row 0-6lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("0"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("6,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("1%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("6,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //3rd row 6-8lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("6,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("8,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("10%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("2,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //4th row 8-11 lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("8,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("11,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("20%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("3,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+      //5th row 11-20 lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("11,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("20,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("30%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("9,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //6th row more than 20lakhs
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(">20,00,000"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("36%"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Remaining"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+        ],
+      ),
+
+      //7th Row
+
+      TableRow(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(""),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Grand Total",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "6500000",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
 }
