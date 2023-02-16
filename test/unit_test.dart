@@ -1,109 +1,150 @@
+import '../lib/controller/function.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// import 'package:flutter_test/flutter_test.dart';
+void main() {
+  //Individual Testing
+  group('Individual Testing', () {
+    test('Individual Testing 1',
+        () => expect(taxCalculateIndividual(1000), [10.0]));
+    test('Individual Testing 2',
+        () => expect(taxCalculateIndividual(500001), [5000.0, 0.1]));
+    test('Individual Testing 3',
+        () => expect(taxCalculateIndividual(700001), [5000.0, 20000.0, 0.2]));
+    test(
+        'Individual Testing 4',
+        () => expect(
+            taxCalculateIndividual(1000001), [5000.0, 20000.0, 60000.0, 0.3]));
+    test(
+        'Individual Testing 5',
+        () => expect(taxCalculateIndividual(2000001),
+            [5000.0, 20000.0, 60000.0, 300000.0, 0.36]));
+    test(
+        'Individual Testing 6',
+        () => expect(taxCalculateIndividual(2500000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 180000.0]));
+    test('Individual Testing 7',
+        () => expect(taxCalculateIndividual(300000), [3000.0]));
+    test(
+        'Individual Testing 8',
+        () => expect(taxCalculateIndividual(8500000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 2340000.0]));
+    test(
+        'Individual Testing 9',
+        () => expect(taxCalculateIndividual(97000000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 34200000.0]));
+    test(
+        'Individual Testing 10',
+        () => expect(taxCalculateIndividual(4588000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 931680.0]));
+    test(
+        'Individual Testing 11',
+        () => expect(taxCalculateIndividual(2008500),
+            [5000.0, 20000.0, 60000.0, 300000.0, 3060.0]));
+    test(
+        'Individual Testing 12',
+        () => expect(taxCalculateIndividual(2500000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 180000.0]));
+    test(
+        'Individual Testing 13',
+        () => expect(taxCalculateIndividual(900000000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 323280000.0]));
+    test('Individual Testing 14',
+        () => expect(taxCalculateIndividual(500000), [5000.0]));
+    test(
+        'Individual Testing 15',
+        () =>
+            expect(taxCalculateIndividual(715000), [5000.0, 20000.0, 3000.0]));
+    test(
+        'Individual Testing 16',
+        () => expect(taxCalculateIndividual(1225000),
+            [5000.0, 20000.0, 60000.0, 67500.0]));
+    test(
+        'Individual Testing 17',
+        () => expect(taxCalculateIndividual(1921000),
+            [5000.0, 20000.0, 60000.0, 276300.0]));
+    test(
+        'Individual Testing 18',
+        () => expect(taxCalculateIndividual(2500000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 180000.0]));
+    test(
+        'Individual Testing 19',
+        () => expect(taxCalculateIndividual(7523000),
+            [5000.0, 20000.0, 60000.0, 300000.0, 1988280.0]));
+    test(
+        'Individual Testing 20',
+        () => expect(taxCalculateIndividual(8452200),
+            [5000.0, 20000.0, 60000.0, 300000.0, 2322792.0]));
+  });
 
-// void main() {
-//   //Individual Testing
-//   group('Individual Testing', () {
-//     test('Individual Testing 1',
-//         () => expect(calculateUnMarried(1000), [10.0, 1.0, 990.0]));
-//     test('Individual Testing 2',
-//         () => expect(calculateUnMarried(500000), [5000.0, 1.0, 495000.0]));
-//     test('Individual Testing 3',
-//         () => expect(calculateUnMarried(715000), [28000.0, 20.0, 687000.0]));
-//     test('Individual Testing 4',
-//         () => expect(calculateUnMarried(1225000), [152500.0, 30.0, 1072500.0]));
-//     test('Individual Testing 5',
-//         () => expect(calculateUnMarried(1921000), [361300.0, 30.0, 1559700.0]));
-//     test('Individual Testing 6',
-//         () => expect(calculateUnMarried(2500000), [565000.0, 30.0, 1935000.0]));
-//     test('Individual Testing 7',
-//         () => expect(calculateUnMarried(300000), [3000.0, 1.0, 297000.0]));
-//     test(
-//         'Individual Testing 8',
-//         () =>
-//             expect(calculateUnMarried(8500000), [2725000.0, 30.0, 5775000.0]));
-//     test(
-//         'Individual Testing 9',
-//         () => expect(
-//             calculateUnMarried(97000000), [34585000.0, 30.0, 62415000.0]));
-//     test(
-//         'Individual Testing 10',
-//         () =>
-//             expect(calculateUnMarried(4588000), [1316680.0, 30.0, 3271320.0]));
-//     test('Individual Testing 11',
-//         () => expect(calculateUnMarried(2008500), [388060.0, 30.0, 1620440.0]));
-//     test('Individual Testing 12',
-//         () => expect(calculateUnMarried(2500000), [565000.0, 30.0, 1935000.0]));
-//     test(
-//         'Individual Testing 13',
-//         () => expect(
-//             calculateUnMarried(900000000), [323665000.0, 30.0, 576335000.0]));
-//     test('Individual Testing 14',
-//         () => expect(calculateUnMarried(500000), [5000.0, 1.0, 495000.0]));
-//     test('Individual Testing 15',
-//         () => expect(calculateUnMarried(715000), [28000.0, 20.0, 687000.0]));
-//     test('Individual Testing 16',
-//         () => expect(calculateUnMarried(1225000), [152500.0, 30.0, 1072500.0]));
-//     test('Individual Testing 17',
-//         () => expect(calculateUnMarried(1921000), [361300.0, 30.0, 1559700.0]));
-//     test('Individual Testing 18',
-//         () => expect(calculateUnMarried(2500000), [565000.0, 30.0, 1935000.0]));
-//     test(
-//         'Individual Testing 19',
-//         () =>
-//             expect(calculateUnMarried(7523000), [2373280.0, 30.0, 5149720.0]));
-//     test(
-//         'Individual Testing 20',
-//         () =>
-//             expect(calculateUnMarried(8452200), [2707792.0, 30.0, 5744408.0]));
-//   });
+//Couple Testing
+  group('Couple Testing', () {
+    test('Couple Testing 1', () => expect(taxCalculateCouple(1000), [10.0]));
+    test(
+        'Couple Testing 2', () => expect(taxCalculateCouple(500000), [5000.0]));
+    test('Couple Testing 3',
+        () => expect(taxCalculateCouple(715000), [6000.0, 11500.0]));
+    test(
+        'Couple Testing 4',
+        () => expect(
+            taxCalculateCouple(1225000), [6000.0, 20000.0, 60000.0, 37500.0]));
+    test(
+        'Couple Testing 5',
+        () => expect(
+            taxCalculateCouple(1921000), [6000.0, 20000.0, 60000.0, 246300.0]));
+    test(
+        'Couple Testing 6',
+        () => expect(taxCalculateCouple(2500000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 180000.0]));
 
-// //Couple Testing
-//   group('Couple Testing', () {
-//     test('Couple Testing 1',
-//         () => expect(calculateMarried(1000), [10.0, 1.0, 990.0]));
-//     test('Couple Testing 2',
-//         () => expect(calculateMarried(500000), [5000.0, 1.0, 495000.0]));
-//     test('Couple Testing 3',
-//         () => expect(calculateMarried(715000), [17500.0, 10.0, 697500.0]));
-//     test('Couple Testing 4',
-//         () => expect(calculateMarried(1225000), [123500.0, 30.0, 1101500.0]));
-//     test('Couple Testing 5',
-//         () => expect(calculateMarried(1921000), [332300.0, 30.0, 1588700.0]));
-//     test('Couple Testing 6',
-//         () => expect(calculateMarried(2500000), [536000.0, 36.0, 1964000.0]));
-
-//     test('Couple Testing 7',
-//         () => expect(calculateMarried(300000), [3000.0, 1.0, 297000.0]));
-//     test('Couple Testing 8',
-//         () => expect(calculateMarried(8500000), [2696000.0, 36.0, 5804000.0]));
-//     test(
-//         'Couple Testing 9',
-//         () =>
-//             expect(calculateMarried(97000000), [34556000.0, 36.0, 62444000.0]));
-//     test('Couple Testing 10',
-//         () => expect(calculateMarried(4588000), [1287680.0, 36.0, 3300320.0]));
-//     test('Couple Testing 11',
-//         () => expect(calculateMarried(2008500), [359060.0, 36.0, 1649440.0]));
-//     test('Couple Testing 12',
-//         () => expect(calculateMarried(2500000), [536000.0, 36.0, 1964000.0]));
-//     test(
-//         'Couple Testing 13',
-//         () => expect(
-//             calculateMarried(900000000), [323636000.0, 36.0, 576364000.0]));
-//     test('Couple Testing 14',
-//         () => expect(calculateMarried(500000), [5000.0, 1.0, 495000.0]));
-//     test('Couple Testing 15',
-//         () => expect(calculateMarried(715000), [17500.0, 10.0, 697500.0]));
-//     test('Couple Testing 16',
-//         () => expect(calculateMarried(1225000), [123500.0, 30.0, 1101500.0]));
-//     test('Couple Testing 17',
-//         () => expect(calculateMarried(1921000), [332300.0, 30.0, 1588700.0]));
-//     test('Couple Testing 18',
-//         () => expect(calculateMarried(2500000), [536000.0, 36.0, 1964000.0]));
-//     test('Couple Testing 19',
-//         () => expect(calculateMarried(7523000), [2344280.0, 36.0, 5178720.0]));
-//     test('Couple Testing 20',
-//         () => expect(calculateMarried(8452200), [2678792.0, 36.0, 5773408.0]));
-//   });
-// }
+    test(
+        'Couple Testing 7', () => expect(taxCalculateCouple(300000), [3000.0]));
+    test(
+        'Couple Testing 8',
+        () => expect(taxCalculateCouple(8500000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 2340000.0]));
+    test(
+        'Couple Testing 9',
+        () => expect(taxCalculateCouple(97000000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 34200000.0]));
+    test(
+        'Couple Testing 10',
+        () => expect(taxCalculateCouple(4588000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 931680.0]));
+    test(
+        'Couple Testing 11',
+        () => expect(taxCalculateCouple(2008500),
+            [6000.0, 30000.0, 60000.0, 270000.0, 3060.0]));
+    test(
+        'Couple Testing 12',
+        () => expect(taxCalculateCouple(2500000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 180000.0]));
+    test(
+        'Couple Testing 13',
+        () => expect(taxCalculateCouple(900000000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 323280000.0]));
+    test('Couple Testing 14',
+        () => expect(taxCalculateCouple(500000), [5000.0]));
+    test('Couple Testing 15',
+        () => expect(taxCalculateCouple(715000), [6000.0, 11500.0]));
+    test(
+        'Couple Testing 16',
+        () => expect(
+            taxCalculateCouple(1225000), [6000.0, 20000.0, 60000.0, 37500.0]));
+    test(
+        'Couple Testing 17',
+        () => expect(
+            taxCalculateCouple(1921000), [6000.0, 20000.0, 60000.0, 246300.0]));
+    test(
+        'Couple Testing 18',
+        () => expect(taxCalculateCouple(2500000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 180000.0]));
+    test(
+        'Couple Testing 19',
+        () => expect(taxCalculateCouple(7523000),
+            [6000.0, 30000.0, 60000.0, 270000.0, 1988280.0]));
+    test(
+        'Couple Testing 20',
+        () => expect(taxCalculateCouple(8452200),
+            [6000.0, 30000.0, 60000.0, 270000.0, 2322792.0]));
+  });
+}
