@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:incometaxcalculatornepal/controller/function.dart';
 import 'package:incometaxcalculatornepal/utils/config.dart';
-// import 'package:pie_chart/pie_chart.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,21 +12,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController amountController = TextEditingController();
   double amount = 0;
-  // List taxSlab = [];
   String dropDownValue = "Unmarried";
   var options = ["Unmarried", "Married"];
 
   String defaultDate = "Yearly";
   var date = ["Yearly", "Monthly"];
-
-  // Map<String, double> dataMap = {
-  //   "Flutter": 5,
-  //   "React": 3,
-  //   "Xamarin": 2,
-  //   "Ionic": 2,
-  // };
-
-  bool name = false;
 
   // Dialog Start
   _showDialog(context, String title, String body) {
@@ -64,21 +53,14 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-//   String effective_tax_rate(double amount) {
-//     return "${amount == 0 ? "0" : "${((taxCalculateIndividual(amount).reduce((a, b) => a + b)) * 100 / amount).toStringAsFixed(2)}%"}";
-// }
-
-// String amount_in_hand(double amount){
-//     return "${amount == 0 ? "0" : (amount - ((taxCalculateIndividual(amount).reduce((a, b) => a + b)))).toStringAsFixed(2)}";
-// }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        backgroundColor: Colors.transparent,
         title: Text(
-          AppDetails.appName,
+          "${AppDetails.appName} ${AppDetails.fiscalYear}",
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -87,8 +69,8 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                _showDialog(
-                    context, "About App", "This App is Developed By Students");
+                _showDialog(context, "About App",
+                    "Income Tax Calculator Nepal is an easy-to-use app that helps you calculate your income tax quickly and accurately. Please kindly note that while we have made every effort to ensure accuracy, we cannot be held responsible for any errors. \n\nDeveloped By:\nAjaya Kandel\nBikram Twayana\nManish Ghorashainee\nRajesh Pangeni\nRam Giri\nSaman KC\nSantosh Adhikari\nBijay Kumal\nDikshya Poudel\nSaroj Ojha\nSabin Kumphakha\nBijayraj Poudel");
               },
               icon: const Icon(Icons.info))
         ],
@@ -118,19 +100,6 @@ class _HomePageState extends State<HomePage> {
                   onChanged: (String? newValue) {
                     clear();
                     dropDownValue = newValue!;
-                    if (dropDownValue == "Unmarried") {
-                      setState(() {
-                        name = true;
-                      });
-                      //
-                    } else if (dropDownValue == "Married") {
-                      setState(() {
-                        name = false;
-                      });
-                      //
-                    } else {
-                      const Text("Invalid Input");
-                    }
                   },
                 ),
               ),
@@ -156,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                       child: TextFormField(
                           controller: amountController,
                           decoration: InputDecoration(
-                              hintText: "120000",
+                              hintText: "Rs, 120000",
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -222,7 +191,9 @@ class _HomePageState extends State<HomePage> {
               ),
 
               //Table
-              name ? unmarriedTable(amount) : marriedTable(amount),
+              dropDownValue == options[0]
+                  ? unmarriedTable(amount)
+                  : marriedTable(amount),
 
               const SizedBox(
                 height: 10,
@@ -242,31 +213,6 @@ class _HomePageState extends State<HomePage> {
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               )
-
-              // PieChart(
-              //   chartRadius: 300,
-              //   dataMap: dataMap,
-              //   animationDuration: const Duration(milliseconds: 1000),
-              //   chartLegendSpacing: 32,
-              //   initialAngleInDegree: 0,
-              //   chartType: ChartType.disc,
-              //   ringStrokeWidth: 32,
-              //   legendOptions: const LegendOptions(
-              //     showLegendsInRow: false,
-              //     legendPosition: LegendPosition.right,
-              //     showLegends: true,
-              //     legendTextStyle: TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //   ),
-              //   chartValuesOptions: const ChartValuesOptions(
-              //     showChartValueBackground: true,
-              //     showChartValues: true,
-              //     showChartValuesInPercentage: false,
-              //     showChartValuesOutside: false,
-              //     decimalPlaces: 1,
-              //   ),
-              // )
             ],
           ),
         ),
@@ -501,8 +447,8 @@ Widget unmarriedTable(amount) {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text((taxCalculateIndividual(amount).reduce((a, b) => a + b))
-                .toStringAsFixed(2)),
+            child: Text(
+                "Rs. ${(taxCalculateIndividual(amount).reduce((a, b) => a + b)).toStringAsFixed(2)}"),
           ),
         ],
       ),
@@ -743,8 +689,8 @@ Widget marriedTable(amount) {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text((taxCalculateIndividual(amount).reduce((a, b) => a + b))
-                .toStringAsFixed(2)),
+            child: Text(
+                "Rs. ${(taxCalculateIndividual(amount).reduce((a, b) => a + b)).toStringAsFixed(2)}"),
           ),
         ],
       ),
