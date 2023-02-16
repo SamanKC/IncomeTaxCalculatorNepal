@@ -60,6 +60,7 @@ class _HomePageState extends State<HomePage> {
   void clear() {
     setState(() {
       amountController.text = "0";
+      amount = 0;
     });
   }
 
@@ -118,10 +119,14 @@ class _HomePageState extends State<HomePage> {
                     clear();
                     dropDownValue = newValue!;
                     if (dropDownValue == "Unmarried") {
-                      name = true;
+                      setState(() {
+                        name = true;
+                      });
                       //
                     } else if (dropDownValue == "Married") {
-                      name = false;
+                      setState(() {
+                        name = false;
+                      });
                       //
                     } else {
                       const Text("Invalid Input");

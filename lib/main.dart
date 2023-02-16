@@ -8,9 +8,8 @@ import 'package:incometaxcalculatornepal/utils/config.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-        primarySwatch: Colors.indigo,
-        scaffoldBackgroundColor: Color.fromARGB(255, 173, 58, 194)),
+    theme:
+        ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 173, 58, 194)),
     home: const SplashScreen(),
   ));
 }
@@ -46,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
             AppDetails.appIcon,
             scale: 5,
           ),
-          CircularProgressIndicator()
+          const CircularProgressIndicator()
         ],
       ),
     ));
