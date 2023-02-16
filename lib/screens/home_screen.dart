@@ -55,7 +55,13 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   // Dialog End
+  void clear() {
+    setState(() {
+      amountController.text = "0";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +107,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
+                    clear();
                     dropDownValue = newValue!;
                     if (dropDownValue == "Unmarried") {
                       name = true;
@@ -109,7 +116,6 @@ class _HomePageState extends State<HomePage> {
                     } else {
                       const Text("Invalid Input");
                     }
-                    setState(() {});
                   },
                 ),
               ),
@@ -179,6 +185,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         }).toList(),
                         onChanged: (String? newValue) {
+                          clear();
                           defaultDate = newValue!;
                           if (defaultDate == "Monthly") {
                             amount = amount * 12;
