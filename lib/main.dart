@@ -1,27 +1,54 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:incometaxcalculatornepal/screens/home_screen.dart';
+import 'package:incometaxcalculatornepal/utils/config.dart';
 //import 'package:incometaxcalculatornepal/screens/test.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        scaffoldBackgroundColor: Color.fromARGB(255, 173, 58, 194)),
+    home: const SplashScreen(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: HomePage(),
+    return Scaffold(
+        body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.asset(
+            AppDetails.appIcon,
+            scale: 5,
+          ),
+          CircularProgressIndicator()
+        ],
       ),
-    );
+    ));
   }
 }
