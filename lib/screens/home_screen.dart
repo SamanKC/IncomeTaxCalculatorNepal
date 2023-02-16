@@ -13,19 +13,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController amountController = TextEditingController();
   double amount = 0;
-  List taxSlab = [];
+  // List taxSlab = [];
   String dropDownValue = "Unmarried";
   var options = ["Unmarried", "Married"];
 
   String defaultDate = "Yearly";
   var date = ["Yearly", "Monthly"];
 
-  Map<String, double> dataMap = {
-    "Flutter": 5,
-    "React": 3,
-    "Xamarin": 2,
-    "Ionic": 2,
-  };
+  // Map<String, double> dataMap = {
+  //   "Flutter": 5,
+  //   "React": 3,
+  //   "Xamarin": 2,
+  //   "Ionic": 2,
+  // };
 
   bool name = false;
 
@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           AppDetails.appName,
           style: const TextStyle(
