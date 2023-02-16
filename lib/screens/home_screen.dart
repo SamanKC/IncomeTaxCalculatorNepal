@@ -63,6 +63,14 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+//   String effective_tax_rate(double amount) {
+//     return "${amount == 0 ? "0" : "${((taxCalculateIndividual(amount).reduce((a, b) => a + b)) * 100 / amount).toStringAsFixed(2)}%"}";
+// }
+
+// String amount_in_hand(double amount){
+//     return "${amount == 0 ? "0" : (amount - ((taxCalculateIndividual(amount).reduce((a, b) => a + b)))).toStringAsFixed(2)}";
+// }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,8 +119,10 @@ class _HomePageState extends State<HomePage> {
                     dropDownValue = newValue!;
                     if (dropDownValue == "Unmarried") {
                       name = true;
+                      //
                     } else if (dropDownValue == "Married") {
                       name = false;
+                      //
                     } else {
                       const Text("Invalid Input");
                     }
@@ -161,6 +171,7 @@ class _HomePageState extends State<HomePage> {
                                 amount = 0;
                               } else {
                                 amount = double.parse(val);
+                                //set for table, tax rate, amount in hand
                               }
                             });
                           }),
@@ -189,6 +200,9 @@ class _HomePageState extends State<HomePage> {
                           defaultDate = newValue!;
                           if (defaultDate == "Monthly") {
                             amount = amount * 12;
+                            //
+                          } else {
+                            //
                           }
                           setState(() {});
                         },

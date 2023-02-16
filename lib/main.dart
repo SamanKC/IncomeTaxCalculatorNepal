@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:incometaxcalculatornepal/screens/home_screen.dart';
 import 'package:incometaxcalculatornepal/utils/config.dart';
+//import 'package:incometaxcalculatornepal/screens/test.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
         primarySwatch: Colors.indigo,
-        scaffoldBackgroundColor: const Color.fromARGB(255, 141, 98, 149)),
+        scaffoldBackgroundColor: Color.fromARGB(255, 173, 58, 194)),
     home: const SplashScreen(),
   ));
 }
