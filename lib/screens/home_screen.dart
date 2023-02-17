@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               onPressed: () {
                 _showDialog(context, "About App",
-                    "Income Tax Calculator Nepal is an easy-to-use app that helps you calculate your income tax quickly and accurately. \nPlease kindly note that while we have made every effort to ensure accuracy, we cannot be held responsible for any errors. \n\nDeveloped By Students of Flutter Batch 2023 by Bishworaj Poudel:\n- Ajaya Kandel\n- Bikram Twayana\n- Manish Ghorashainee\n- Rajesh Pangeni\n- Ram Giri\n- Saman KC\n- Santosh Adhikari\n- Bijay Kumal\n- Dikshya Poudel\n- Saroj Ojha\n- Sabin Kumpakha\n- Bijayraj Poudel");
+                    "Income Tax Calculator Nepal is an easy-to-use app that helps you calculate your income tax quickly and accurately. \nPlease kindly note that while we have made every effort to ensure accuracy, we cannot be held responsible for any errors. \n\nDeveloped By Students of Flutter Batch 2023 by Bishworaj Poudel:\n- Ajaya Kandel\n- Bijay Kumal\n- Bijayraj Poudel\n- Bikram Twayana\n- Dikshya Poudel\n- Manish Ghorashainee\n- Rajesh Pangeni\n- Ram Giri\n- Sabin Kumpakha\n- Saman KC\n- Santosh Adhikari\n- Saroj Ojha");
               },
               icon: const Icon(Icons.info))
         ],
