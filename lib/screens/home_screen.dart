@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   var options = ["Unmarried", "Married"];
 
   String defaultDate = "Yearly";
-  var date = ["Yearly", "Monthly"];
+  var date = ["Yearly"];
 
   // Dialog Start
   _showDialog(context, String title, String body) {
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               onPressed: () {
                 _showDialog(context, "About App",
-                    "Income Tax Calculator Nepal is an easy-to-use app that helps you calculate your income tax quickly and accurately. Please kindly note that while we have made every effort to ensure accuracy, we cannot be held responsible for any errors. \n\nDeveloped By:\nAjaya Kandel\nBikram Twayana\nManish Ghorashainee\nRajesh Pangeni\nRam Giri\nSaman KC\nSantosh Adhikari\nBijay Kumal\nDikshya Poudel\nSaroj Ojha\nSabin Kumphakha\nBijayraj Poudel");
+                    "Income Tax Calculator Nepal is an easy-to-use app that helps you calculate your income tax quickly and accurately. \nPlease kindly note that while we have made every effort to ensure accuracy, we cannot be held responsible for any errors. \n\nDeveloped By Students of Flutter Batch 2023 by Bishworaj Poudel:\n- Ajaya Kandel\n- Bikram Twayana\n- Manish Ghorashainee\n- Rajesh Pangeni\n- Ram Giri\n- Saman KC\n- Santosh Adhikari\n- Bijay Kumal\n- Dikshya Poudel\n- Saroj Ojha\n- Sabin Kumpakha\n- Bijayraj Poudel");
               },
               icon: const Icon(Icons.info))
         ],
@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.bottomLeft,
                   margin: const EdgeInsets.only(left: 12),
                   child: const Text(
-                    "Enter Your Amount:",
+                    "Enter Income:",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
 

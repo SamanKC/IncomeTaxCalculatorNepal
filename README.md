@@ -1,112 +1,29 @@
 ### Income Tax Calculator Nepal
-This application is designed to help individuals and accountants in Nepal to calculate income tax quickly and accurately. 
-
+Income Tax Calculator Nepal is an easy-to-use app that helps you calculate your income tax quickly and accurately. Please kindly note that while we have made every effort to ensure accuracy, we cannot be held responsible for any errors.
 
 The app is especially useful for individuals who want to plan their finances and understand how much they need to set aside for taxes.
 
-### Slogan
+### Slogan 
 - Know Your Tax
 
-### .....Developers......
-1 Project Management: Bishworaj Poudel (https://github.com/bishworajpoudelofficial)
-2 Documentation: Santosh Adhikari (https://github.com/Santoshadhikary)
-3 Function Single/Couple: Saman KC (https://github.com/SamanKC)
-4 UI Homepage: Manish Ghorasha (https://github.com/Manishghorashaine),
- Rajesh Pangeni (https://github.com/Rajpa2073)
-5 About Dialog: Bijay Kumal (https://github.com/BijayKuma)
-6 Logo, Fonts, Colors: Bikram Twayana ([https://github.com/bikram-twana)
-7 Testing: Sabin Kumpakha (https://github.com/sabin-tech-glitch)
-8 UI Splash Screen: Saroj Ojha (https://github.com/sarojojha09)
-8 Dikshya: Saroj Ojha (https://github.com/sarojojha09)
-8 Ajay: Saroj Ojha (https://github.com/sarojojha09)
-9. Ram Ji
-
-### Splash Screen
-- Logo 
-- App Name
-- App Version
+Developed By Students of Flutter Batch 2023 by Bishworaj Poudel
+Santosh Adhikari (https://github.com/Santoshadhikary)
+Saman KC (https://github.com/SamanKC)
+Manish Ghorasha (https://github.com/Manishghorashaine),
+Rajesh Pangeni (https://github.com/Rajpa2073)
+Bijay Kumal (https://github.com/BijayKuma)
+Bikram Twayana ([https://github.com/bikram-twana)
+Sabin Kumpakha (https://github.com/sabin-tech-glitch)
+Saroj Ojha (https://github.com/sarojojha09)
+Dikshya Poudel (https://github.com/Dikshyapoudel12)
+Ajay Khadel (https://github.com/ajaya2944)
+Ram Giri (https://github.com/ram-giri)
 
 
-### Assets
--Logo: logo.png
--Size: 512x512
--Background: Transparent
-
-Features
+### Features
 Calculate income tax for single or couple
 Use tables, charts, and bar diagrams to show tax calculations
 
-UI
-- Splash Screen
-- Main Page
-- Toast On 
-
-
-
 ### How to Use
-The application is easy to use. Simply enter the required information and the app will calculate the tax amount.
+Select your tax status (single or couple) and enter your annual income. 
 
-
-### Deadline
-- The project deadline is 16 Feb 2023.
-
-
-
-
-<!-- ### Income Tax Calculator Nepal
-This app helps people of Nepal to calculate income tax. It is useful for accountant as well as individual. 
-For individuals who want to plan their finances and understand how much they need to set aside for taxes.
-
-### Slogan
-- Know Your Tax
-
-### Developers
-- Function Single / Couple [Saman]
-- UI Splash Screen [Saroj Ji]
-- UI Homepage [Manish Ji, Rajesh Ji]
-- About Dialog [Bijay Ji]
-- Logo, Fonts, Colors
-- Testing [Sabin Ji]
-- Documentation [Santosh Adhikari]
-
-- Project Management [Bishworaj Poudel]
-
-### Splash Screen
-- Logo 
-- App Name
-- App Version
-
-
-### Assets
-- Logo [Bikram ji]
-- Name must be logo.png
-- Size 512x512
-- Transparent Background
-
-Features:
-- Calculate Income Tax Of Single/ Couple
-- Use of Table, Charts, Bar Diagram
-
-UI
-- Splash Screen
-- Main Page
-- Toast On 
-
-1. Function Single/ Couple [Saman]
-2. UI Splash Screen [Saroj Ji]
-3. UI Homepage [Manish Ji]
-4. About Dialog [Bijay Ji]
-5. App Info, Logo, Fonts & Structure [Bikram]
-
-### How to Use
-
-
-### Deadline
-- 16 Feb 2023
-
-
-
-
-
-
- -->
