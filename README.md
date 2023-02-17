@@ -6,18 +6,18 @@ The app is especially useful for individuals who want to plan their finances and
 ### Slogan 
 - Know Your Tax
 
-Developed By Students of Flutter Batch 2023 by Bishworaj Poudel
-Santosh Adhikari (https://github.com/Santoshadhikary)
-Saman KC (https://github.com/SamanKC)
-Manish Ghorasha (https://github.com/Manishghorashaine),
-Rajesh Pangeni (https://github.com/Rajpa2073)
-Bijay Kumal (https://github.com/BijayKuma)
-Bikram Twayana ([https://github.com/bikram-twana)
-Sabin Kumpakha (https://github.com/sabin-tech-glitch)
-Saroj Ojha (https://github.com/sarojojha09)
-Dikshya Poudel (https://github.com/Dikshyapoudel12)
-Ajay Khadel (https://github.com/ajaya2944)
-Ram Giri (https://github.com/ram-giri)
+### Developed By Students of Flutter Batch 2023 by Bishworaj Poudel
+- Santosh Adhikari (https://github.com/Santoshadhikary)
+- Saman KC (https://github.com/SamanKC)
+- Manish Ghorasha (https://github.com/Manishghorashaine),
+- Rajesh Pangeni (https://github.com/Rajpa2073)
+- Bijay Kumal (https://github.com/BijayKuma)
+- Bikram Twayana ([https://github.com/bikram-twana)
+- Sabin Kumpakha (https://github.com/sabin-tech-glitch)
+- Saroj Ojha (https://github.com/sarojojha09)
+- Dikshya Poudel (https://github.com/Dikshyapoudel12)
+- Ajay Khadel (https://github.com/ajaya2944)
+- Ram Giri (https://github.com/ram-giri)
 
 
 ### Features
